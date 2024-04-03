@@ -1,0 +1,10 @@
+bin/configlet
+bin/configlet.exe
+build/
+**/*.out
+**/*.o
+.DS_Store
+node_modules
+.yarn
+yarn.lock
+cache
