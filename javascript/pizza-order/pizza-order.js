@@ -1,15 +1,3 @@
-/// <reference path="./global.d.ts" />
-//
-// @ts-check
-
-/**
- * Determine the price of the pizza given the pizza and optional extras
- *
- * @param {string} pizza name of the pizza to be made
- * @param {string[]} extras list of extras
- *
- * @returns {number} the price of the pizza
- */
 export function pizzaPrice(pizza, ...extras) {
   const pizzaPrices = {
     'Margherita': 7,
@@ -17,30 +5,31 @@ export function pizzaPrice(pizza, ...extras) {
     'Formaggio': 10
   };
 
+
   const extrasPrices = {
     'ExtraSauce': 1,
     'ExtraToppings': 2
   };
 
+  // Base case: if there are no extras, return the price of the pizza type
   if (extras.length === 0) {
     return pizzaPrices[pizza];
   } else {
+    // Recursive case: calculate the price of the current extra and add it to the price of the pizza with remaining extras
     return extrasPrices[extras[0]] + pizzaPrice(pizza, ...extras.slice(1));
   }
 }
 
-/**
- * Calculate the price of the total order, given individual orders
- *
- * @param {PizzaOrder[]} pizzaOrders a list of pizza orders
- * @returns {number} the price of the total order
- */
+// Function to calculate the total price of multiple pizza orders
 export function orderPrice(pizzaOrders) {
   let totalPrice = 0;
 
+  // Iterate through each pizza order
   for (let order of pizzaOrders) {
+    // Calculate the price of each pizza order and add it to the total price
     totalPrice += pizzaPrice(order.pizza, ...order.extras);
   }
 
+  // Return the total price of all pizza orders
   return totalPrice;
 }
