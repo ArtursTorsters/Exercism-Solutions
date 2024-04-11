@@ -25,7 +25,7 @@ if (left > right) {
     left = mid + 1 // update right to search the left half
   }
   }
-  // throw new Error('Value not in array')
+  throw new Error('Value not in array')
 }
 
 
