@@ -1,43 +1,30 @@
-// Given students' names along with the grade that they are in, create a roster for the school.
-
-// In the end, you should be able to:
-
-// - Add a student's name to the roster for a grade
-//   - "Add Jim to grade 2."
-//   - "OK."
-// - Get a list of all students enrolled in a grade
-//   - "Which students are in grade 2?"
-//   - "We've only got Jim just now."
-// - Get a sorted list of all students in all grades.
-//   Grades should sort as 1, 2, 3, etc., and students within a grade should be sorted alphabetically by name.
-//   - "Who all is enrolled in school right now?"
-//   - "Let me think.
-//     We have Anna, Barb, and Charlie in grade 1, Alex, Peter, and Zoe in grade 2 and Jim in grade 5.
-//     So the answer is: Anna, Barb, Charlie, Alex, Peter, Zoe and Jim"
-
-// Note that all our students only have one name (It's a small town, what do you want?) and each student cannot be added more than once to a grade or the roster.
-// In fact, when a test attempts to add the same student more than once, your implementation should indicate that this is incorrect.
+//
+// This is only a SKELETON file for the 'Grade School' exercise. It's been provided as a
+// convenience to get you started writing code faster.
+//
 
 export class GradeSchool {
-
-
-
-  roster() {
-
-
-    return {}
-
+  constructor(){
+    this._roster = {}; // initialize as empty
   }
-
-  add() {
-
-
+    
+    roster() {
+      return structuredClone(this._roster); // return copy of roster
+    }
+  
+    add(name, grade) {
+      // check for name in grade of roster and remove if found
+      for(const g in this._roster){
+        const index = this._roster[g].indexOf(name);
+        if(index >= 0){ this._roster[g].splice(index, 1) }
+      }
+      // add name to given grade
+      this._roster[grade] = [...(this._roster[grade] || []), name].sort();
+    }
+  
+    grade(grade) {
+      // return copy or empty array if nothing is found
+      return Array.from(this._roster[grade] || []);
+    }
   }
-
-  grade() {
-
-
-  }
-
-
-}
+  
