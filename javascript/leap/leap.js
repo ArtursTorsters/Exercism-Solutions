@@ -1,8 +1,9 @@
-//
-// This is only a SKELETON file for the 'Leap' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
-export const isLeap = () => {
-  throw new Error('Remove this statement and implement this function');
+export const isLeap = (year) => {
+  if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+      console.log("is leap year");
+      return true;
+  } else {
+      console.log("is not leap year");
+      return false;
+  }
 };
