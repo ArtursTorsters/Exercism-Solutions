@@ -1,42 +1,54 @@
-//
-// This is only a SKELETON file for the 'List Ops' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class List {
-  constructor() {
-    throw new Error('Remove this statement and implement this function');
+  #values;
+
+  // Constructor to initialize the List with values (default empty array if no values provided)
+  constructor(values = []) {
+    this.#values = values;
   }
 
-  append() {
-    throw new Error('Remove this statement and implement this function');
+  // Getter method to return a copy of the values array
+  get values() {
+    return [...this.#values];
   }
 
-  concat() {
-    throw new Error('Remove this statement and implement this function');
+  // Method to append another List to the current List
+  append(list) {
+    return list.foldl((acc, value) => new List([...acc.values, value]), this);
   }
 
-  filter() {
-    throw new Error('Remove this statement and implement this function');
+  // Method to concatenate another List or value(s) to the current List
+  concat(list) {
+    return list.foldl((acc, value) => acc.append(value instanceof List ? value : new List([value])), this);
   }
 
-  map() {
-    throw new Error('Remove this statement and implement this function');
+  // Method to filter the values in the List based on a predicate function
+  filter(pred) {
+    return this.foldl((acc, value) => pred(value) ? acc.append(new List([value])) : acc);
   }
 
+  // Method to apply a function to each value in the List and return a new List of the results
+  map(fn) {
+    return this.foldl((acc, value) => acc.append(new List([fn(value)])));
+  }
+
+  // Method to return the length of the List
   length() {
-    throw new Error('Remove this statement and implement this function');
+    return this.foldl(length => length + 1, 0);
   }
 
-  foldl() {
-    throw new Error('Remove this statement and implement this function');
+  // Method to fold (reduce) the List from left to right using a function and an initial accumulator value
+  foldl(fn, acc = new List()) {
+    const [first, ...rest] = this.#values;
+    return first === undefined ? acc : new List(rest).foldl(fn, fn(acc, first));
   }
 
-  foldr() {
-    throw new Error('Remove this statement and implement this function');
+  // Method to fold (reduce) the List from right to left using a function and an initial accumulator value
+  foldr(...args) {
+    return this.reverse().foldl(...args);
   }
 
+  // Method to reverse the order of values in the List
   reverse() {
-    throw new Error('Remove this statement and implement this function');
+    return this.foldl((acc, value) => new List([value]).append(acc));
   }
 }
