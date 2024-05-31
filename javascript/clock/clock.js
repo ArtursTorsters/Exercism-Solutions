@@ -1,26 +1,39 @@
-//
-// This is only a SKELETON file for the 'Clock' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class Clock {
-  constructor() {
-    throw new Error('Remove this statement and implement this function');
+  constructor(hours = 0, minutes = 0) {
+    this.hours = hours;
+    this.minutes = minutes;
+    this.normalize();
+  }
+
+  // Normalize the time so that hours and minutes are in the correct range
+  normalize() {
+    // Calculate total minutes to handle overflow
+    let totalMinutes = this.hours * 60 + this.minutes;
+    totalMinutes = ((totalMinutes % 1440) + 1440) % 1440; // Normalize total minutes to be within 0 and 1439
+
+    // Calculate normalized hours and minutes
+    this.hours = Math.floor(totalMinutes / 60);
+    this.minutes = totalMinutes % 60;
   }
 
   toString() {
-    throw new Error('Remove this statement and implement this function');
+    const pad = (number) => String(number).padStart(2, '0');
+    return `${pad(this.hours)}:${pad(this.minutes)}`;
   }
 
-  plus() {
-    throw new Error('Remove this statement and implement this function');
+  plus(minutes) {
+    this.minutes += minutes;
+    this.normalize();
+    return this;
   }
 
-  minus() {
-    throw new Error('Remove this statement and implement this function');
+  minus(minutes) {
+    this.minutes -= minutes;
+    this.normalize();
+    return this;
   }
 
-  equals() {
-    throw new Error('Remove this statement and implement this function');
+  equals(otherClock) {
+    return this.hours === otherClock.hours && this.minutes === otherClock.minutes;
   }
 }

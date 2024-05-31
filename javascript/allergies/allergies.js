@@ -1,18 +1,45 @@
-//
-// This is only a SKELETON file for the 'Allergies' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
 
 export class Allergies {
-  constructor() {
-    throw new Error('Remove this statement and implement this function');
-  }
+
+  constructor(allergenIndex) {
+    // Store the allergy index
+    this.allergies = allergenIndex;
+    // Initialize an array to hold the allergens
+    this.allergens = [];
+    // Parse the allergy index and determine the allergens
+    this.parseAllergies();
+}
+
+ parseAllergies() {
+    const allergensList = [
+        "eggs",
+        "peanuts",
+        "shellfish",
+        "strawberries",
+        "tomatoes",
+        "chocolate",
+        "pollen",
+        "cats"
+    ];
+    // Iterate through the allergens list
+    for (let i = 0; i < allergensList.length; i++) {
+        // Check if the bit corresponding to the allergen is set in the allergy index
+        if ((this.allergies & (1 << i)) !== 0) {
+            // If set, add the allergen to the allergens array
+            this.allergens.push(allergensList[i]);
+        }
+    }
+}
 
   list() {
-    throw new Error('Remove this statement and implement this function');
+
+    return this.allergens;
+
   }
 
-  allergicTo() {
-    throw new Error('Remove this statement and implement this function');
+  allergicTo(allergen) {
+
+    return this.allergens.includes(allergen);
+
   }
 }
