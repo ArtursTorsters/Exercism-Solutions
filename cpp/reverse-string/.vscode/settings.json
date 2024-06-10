@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.css": "tailwindcss",
+        "__locale": "cpp",
+        "__string": "cpp",
+        "regex": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "bitset": "cpp",
+        "filesystem": "cpp",
+        "iosfwd": "cpp",
+        "format": "cpp"
+    }
+}
