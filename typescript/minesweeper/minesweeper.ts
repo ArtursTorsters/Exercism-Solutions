@@ -1,7 +1,10 @@
 export function annotate(input: any[]): any {
   let arr = input;
   const numRows = arr.length;
+  console.log("row length",numRows);
+
   const numCols = arr[0].length;
+  console.log("colomn length",numCols);
 
   // Define directions for adjacent squares
   const directions = [
