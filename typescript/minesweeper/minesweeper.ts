@@ -1,57 +1,42 @@
-export function annotate(input: any[]): any {
-  let arr = input;
-  const numRows = arr.length;
-  console.log("row length",numRows);
 
-  const numCols = arr[0].length;
-  console.log("colomn length",numCols);
 
-  // Define directions for adjacent squares
-  const directions = [
-      [-1, -1], [-1, 0], [-1, 1],
-      [0, -1],         [0, 1],
-      [1, -1], [1, 0], [1, 1]
-  ];
+  // general approach to find empty squares and go over neighbors count how many are mines and then update value
+  // basically search for mines and count neighbors
 
-  // Helper function to check if given coordinates are within bounds of the board
-  const isValidCoord = (row: number, col: number): boolean => {
-      return row >= 0 && row < numRows && col >= 0 && col < numCols;
-  };
 
-  // Main processing loop
-  for (let row = 0; row < numRows; row++) {
-      for (let col = 0; col < numCols; col++) {
-          // Skip processing if current cell is a mine
-          if (arr[row][col] === '*') continue;
+  export function annotate(input: any[]): any {
+    const numRows = input.length;
+    const numCols = input[0].length;
+if(numRows === 0) return []
+    // Define a function to count mines around a given cell
+    const countMines = (row: number, col: number): number => {
+        let count = 0;
+        for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+                const newRow = row + dx;
+                const newCol = col + dy;
+                if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols && input[newRow][newCol] === '*') {
+                    count++;
+                }
+            }
+        }
+        return count;
+    };
 
-          // Count the number of adjacent mines
-          let mineCount = 0;
-          for (const [dx, dy] of directions) {
-              const newRow = row + dx;
-              const newCol = col + dy;
-              if (isValidCoord(newRow, newCol) && arr[newRow][newCol] === '*') {
-                  mineCount++;
-              }
-          }
+    // Create a copy of the input board
+    const result = input.map(row => row.slice());
 
-          // Update the board with the mine count or leave empty if no adjacent mines
-          if (mineCount > 0) {
-              arr[row][col] = mineCount.toString();
-          }
-      }
-  }
+    // Iterate over each cell in the board
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            if (result[row][col] === ' ') {
+                const mineCount = countMines(row, col);
+                if (mineCount > 0) {
+                    result[row][col] = mineCount.toString();
+                }
+            }
+        }
+    }
 
-  return arr;
+    return result;
 }
-
-// Test your function
-const inputBoard = [
-  ['*', ' ', ' ', '*'],
-  [' ', ' ', ' ', ' '],
-  [' ', '*', ' ', ' '],
-  [' ', ' ', ' ', ' '],
-  ['*', ' ', '*', ' ']
-];
-
-const annotatedBoard = annotate(inputBoard);
-console.log(annotatedBoard);
