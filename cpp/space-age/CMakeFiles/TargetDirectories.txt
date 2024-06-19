@@ -1,0 +1,4 @@
+/Users/admin/desktop/code/exercism/cpp/space-age/CMakeFiles/space-age.dir
+/Users/admin/desktop/code/exercism/cpp/space-age/CMakeFiles/test_space-age.dir
+/Users/admin/desktop/code/exercism/cpp/space-age/CMakeFiles/edit_cache.dir
+/Users/admin/desktop/code/exercism/cpp/space-age/CMakeFiles/rebuild_cache.dir
