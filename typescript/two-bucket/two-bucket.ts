@@ -13,13 +13,9 @@ export class TwoBucket {
   }
 
   moves() {
-
+  
 
     
-
-
-
-
   }
 
   get goalBucket() {
